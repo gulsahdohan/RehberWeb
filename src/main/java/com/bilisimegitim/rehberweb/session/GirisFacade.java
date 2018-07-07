@@ -9,6 +9,7 @@ import com.bilisimegitim.rehberweb.entity.Giris;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -28,5 +29,22 @@ public class GirisFacade extends AbstractFacade<Giris> {
     public GirisFacade() {
         super(Giris.class);
     }
-    
+
+    public boolean girisKontrol(String p_username, String p_sifre) {
+
+        try {
+            Giris g = em.createNamedQuery("Giris.girisKontrol", Giris.class).setParameter("kullanici", p_username).setParameter("sifre", p_sifre).getSingleResult();
+            
+            if (g != null) {
+                
+                return true;
+            } else {
+                return false;                
+            }
+        } catch (Exception e) {
+             return false;
+        }
+
+    }
+
 }
